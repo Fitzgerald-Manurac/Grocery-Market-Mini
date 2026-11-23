@@ -37,9 +37,9 @@ Built with TypeScript and Vite.
 
 Download the portable Windows x64 app:
 
-**[Open the GitHub Releases page](https://github.com/Fitzgerald-Manurac/Grocery-Market-Mini/releases)**
+**[Download Grocery Market Mini for Windows](https://github.com/Fitzgerald-Manurac/Grocery-Market-Mini/releases/download/v0.1.0/Grocery%20Market%20Mini-0.1.0-x64.exe)**
 
-Download the Windows x64 portable `.exe` from the latest release; no installer is needed. The download will be available after the app is uploaded as a GitHub Release asset.
+Run the downloaded Windows x64 portable `.exe`; no installer is needed. Windows may show a SmartScreen warning because the app is not code-signed.
 
 ### Android APK
 
