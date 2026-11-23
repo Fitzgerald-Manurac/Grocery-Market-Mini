@@ -10,6 +10,7 @@ release/
 !release/
 release/*
 !release/*.apk
+!release/PURPOSE.md
 android/.gradle/
 android/local.properties
 android/**/build/
