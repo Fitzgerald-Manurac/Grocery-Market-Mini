@@ -31,48 +31,6 @@ npm run build  # Type-check and create a production build
 
 Built with TypeScript and Vite.
 
-## Project structure
-
-The repository is organized by platform, game feature, and development task:
-
-| Path | Purpose |
-| --- | --- |
-| `.github/workflows/` | Runs automated tests and browser smoke checks, then deploys the web game to GitHub Pages. |
-| `android/` | Native Android wrapper and Gradle project for building the APK. |
-| `electron/` | Electron main process used by the Windows desktop app. |
-| `public/` | Static images, icons, web-app manifest, and service worker. |
-| `release/` | Android APK shared from this repository; desktop installers are attached to GitHub Releases. |
-| `src/` | TypeScript source for the game, simulation, rendering, and user interface. |
-| `tests/` | Automated tests for game rules, simulation, progression, and save data. |
-| `tools/` | Asset generators, content data, economy simulation, and browser smoke-test scripts. |
-
-### Source code
-
-| Path | Purpose |
-| --- | --- |
-| `src/core/` | Shared assets, audio, preferences, and random-number utilities. |
-| `src/data/` | Game data for the world, characters, and products. |
-| `src/game/` | Game state, simulation, rules, progression, layout, and achievements. |
-| `src/i18n/` | Translation dictionaries and language-selection helpers. |
-| `src/mini/` | Counter minigames such as checkout, bakery, coffee, deli, and oden. |
-| `src/render/` | Canvas-based world renderer. |
-| `src/ui/` | Menus, panels, store screens, and other interface components. |
-| `src/main.ts` | Browser app entry point. |
-| `src/style.css` | Global game styles. |
-
-### Root configuration files
-
-| File | Purpose |
-| --- | --- |
-| `package.json` / `package-lock.json` | Project scripts and pinned JavaScript dependencies. |
-| `index.html` | Web app HTML entry point. |
-| `capacitor.config.ts` | Capacitor settings shared with the Android app. |
-| `vite.config.ts` | Web development and production-build configuration. |
-| `tsconfig.json` | TypeScript compiler settings. |
-| `vitest.config.ts` | Automated test-runner configuration. |
-| `qodana.yaml` | Qodana code-inspection configuration. |
-| `.gitignore` | Excludes dependencies, generated builds, and local signing credentials from Git. |
-
 ## Desktop and Android apps
 
 ### Windows
