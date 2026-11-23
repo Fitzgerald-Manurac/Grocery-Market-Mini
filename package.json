@@ -1,0 +1,59 @@
+{
+  "name": "grocery",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A pixel-art supermarket management game.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fitzgerald-Manurac/Grocery-Market-Mini.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "app:windows": "npm run build && electron-builder --win portable",
+    "app:windows:run": "npm run build && electron .",
+    "app:android:sync": "npm run build && cap sync android",
+    "app:android:open": "npm run app:android:sync && cap open android",
+    "test": "vitest run",
+    "sprites": "python3 tools/gen_sprites.py",
+    "smoke": "node tools/smoke.mjs",
+    "smoke:offline": "node tools/offline-smoke.mjs",
+    "economy": "vitest run --config tools/economy.config.ts --silent=false"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0",
+    "puppeteer-core": "25.12.0",
+    "typescript": "5.9.3",
+    "vite": "8.3.1",
+    "vitest": "5.0.2"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
+    "@fontsource/pixelify-sans": "5.2.7",
+    "@fontsource/vt323": "5.2.7"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.fitzgeraldmanurac.grocerymarketmini",
+    "productName": "Grocery Market Mini",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "dist/**/*",
+      "public/icon-512.png",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "public/icon.ico"
+    },
+    "artifactName": "${productName}-${version}-${arch}.${ext}"
+  }
+}
