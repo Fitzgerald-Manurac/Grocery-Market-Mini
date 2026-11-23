@@ -1,6 +1,10 @@
 # Grocery Market Mini
 
-A supermarket management game that runs in your browser. Build and grow your store while customers shop and your staff keep things moving.
+Grocery Market Mini is a supermarket management game where you build a small shop into a busy neighborhood store. Stock shelves with groceries, set up your store, hire staff to help serve customers, and keep daily operations running as your business grows.
+
+Customers have their own preferences and shopping habits, so the products you carry and the way you organize your store shape each day. When you want a more hands-on challenge, step in at the counter to check out customers or help at the oden, deli, bakery, and coffee stations. Expand your store over time and create a market that fits the way you want to play.
+
+Play in your browser, or download the portable Windows app or Android APK below.
 
 **Play:** [Grocery Market Mini](https://fitzgerald-manurac.github.io/Grocery-Market-Mini/)
 
