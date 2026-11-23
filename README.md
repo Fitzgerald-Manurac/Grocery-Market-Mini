@@ -1,6 +1,6 @@
 # Grocery Market Mini
 
-A pixel-art supermarket management game that runs in your browser. Build and grow your store while customers shop and your staff keep things moving.
+A supermarket management game that runs in your browser. Build and grow your store while customers shop and your staff keep things moving.
 
 **Play:** [Grocery Market Mini](https://fitzgerald-manurac.github.io/Grocery-Market-Mini/)
 
