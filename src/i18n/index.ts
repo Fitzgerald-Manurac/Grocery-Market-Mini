@@ -6,7 +6,7 @@ import enNames from './generated/en.json';
 import zhNames from './generated/zh.json';
 import jaNames from './generated/ja.json';
 import koNames from './generated/ko.json';
-import { CASH, CASH_OF_LOCALE, type CashId, type CashSet } from '../game/rules';
+import { CASH, CASH_OF_LOCALE, PHP_PER_USD, type CashId, type CashSet } from '../game/rules';
 
 export type { Key };
 
@@ -98,10 +98,19 @@ export function staffName(index: number): string {
   return current.names.staff[`s${index}`] ?? `#${index}`;
 }
 
-/** All language settings use dollar prices and two decimal places. */
+/** All language settings show the existing peso-based game economy in USD. */
 const MONEY: Record<string, [string, number, number]> = { en: ['$', 1, 2], zh: ['$', 1, 2], ja: ['$', 1, 2], ko: ['$', 1, 2] };
 
 export function money(v: number): string {
+  return formatUsd(v / PHP_PER_USD);
+}
+
+/** Formats amounts already denominated in USD, such as checkout change. */
+export function usdMoney(v: number): string {
+  return formatUsd(v);
+}
+
+function formatUsd(v: number): string {
   const sign = v < 0 ? '-' : '';
   const [sym, k, d] = MONEY[current.code] ?? MONEY.en;
   return `${sign}${sym}${(Math.abs(v) * k).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d })}`;
