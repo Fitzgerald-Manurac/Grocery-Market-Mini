@@ -82,12 +82,12 @@ function make(rng: Rng, level: number, n: number, scale: number, rewardBase: num
 export function refreshGoals(g: GoalsState, seed: number, day: number, level: number, scope = levelScope(level)): void {
   if (g.day !== day) {
     g.day = day;
-    g.daily = make(new Rng((seed * 13 + day * 977) | 0), level, 3, 1, 1600, scope);
+    g.daily = make(new Rng((seed * 13 + day * 977) | 0), level, 3, 1, 40, scope);
   }
   const week = Math.floor((day - 1) / 7);
   if (g.week !== week) {
     g.week = week;
-    g.weekly = make(new Rng((seed * 17 + week * 7919) | 0), level, 2, 5, 10000, scope);
+    g.weekly = make(new Rng((seed * 17 + week * 7919) | 0), level, 2, 5, 250, scope);
   }
   fitGoals(g, seed, day, scope);
 }
