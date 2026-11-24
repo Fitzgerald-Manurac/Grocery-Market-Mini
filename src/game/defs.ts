@@ -64,11 +64,11 @@ export interface FixtureDef {
 }
 
 export const FIXTURES: Record<FixtureKind, FixtureDef> = {
-  shelf: { kind: 'shelf', store: 'shelf', price: 7500, capacity: 12 },
-  produce: { kind: 'produce', store: 'produce', price: 9000, capacity: 10 },
-  fridge: { kind: 'fridge', store: 'fridge', price: 22500, capacity: 8 },
-  freezer: { kind: 'freezer', store: 'freezer', price: 25000, capacity: 8 },
-  decor: { kind: 'decor', store: 'shelf', price: 2000, capacity: 0 },
+  shelf: { kind: 'shelf', store: 'shelf', price: 150, capacity: 12 },
+  produce: { kind: 'produce', store: 'produce', price: 180, capacity: 10 },
+  fridge: { kind: 'fridge', store: 'fridge', price: 450, capacity: 8 },
+  freezer: { kind: 'freezer', store: 'freezer', price: 500, capacity: 8 },
+  decor: { kind: 'decor', store: 'shelf', price: 40, capacity: 0 },
 };
 
 export interface LevelDef {
@@ -85,12 +85,12 @@ export interface LevelDef {
 }
 
 export const LEVELS: LevelDef[] = [
-  { w: 14, h: 10, registers: 1, cards: 0, stations: [], bagging: false, cost: 0, roster: 60, rent: 1500 },
-  { w: 18, h: 12, registers: 2, cards: 0, stations: ['oden'], bagging: false, cost: 75000, roster: 80, rent: 4000 },
-  { w: 22, h: 13, registers: 2, cards: 1, stations: ['oden', 'deli'], bagging: false, cost: 225000, roster: 100, rent: 6500 },
-  { w: 26, h: 14, registers: 2, cards: 1, stations: ['oden', 'deli', 'bakery'], bagging: false, cost: 600000, roster: 120, rent: 9500 },
-  { w: 30, h: 15, registers: 3, cards: 1, stations: ['oden', 'deli', 'bakery', 'coffee'], bagging: false, cost: 1250000, roster: 140, rent: 13000 },
-  { w: 34, h: 16, registers: 3, cards: 2, stations: ['oden', 'deli', 'bakery', 'coffee'], bagging: true, cost: 2250000, roster: 160, rent: 17000 },
+  { w: 14, h: 10, registers: 1, cards: 0, stations: [], bagging: false, cost: 0, roster: 60, rent: 30 },
+  { w: 18, h: 12, registers: 2, cards: 0, stations: ['oden'], bagging: false, cost: 1500, roster: 80, rent: 80 },
+  { w: 22, h: 13, registers: 2, cards: 1, stations: ['oden', 'deli'], bagging: false, cost: 4500, roster: 100, rent: 130 },
+  { w: 26, h: 14, registers: 2, cards: 1, stations: ['oden', 'deli', 'bakery'], bagging: false, cost: 12000, roster: 120, rent: 190 },
+  { w: 30, h: 15, registers: 3, cards: 1, stations: ['oden', 'deli', 'bakery', 'coffee'], bagging: false, cost: 25000, roster: 140, rent: 260 },
+  { w: 34, h: 16, registers: 3, cards: 2, stations: ['oden', 'deli', 'bakery', 'coffee'], bagging: true, cost: 45000, roster: 160, rent: 340 },
 ];
 
 export type Skill =
@@ -103,13 +103,13 @@ export const BASE_SKILLS: Skill[] = ['restock', 'checkout', 'walk', 'clean', 'gr
 export const ODEN_ITEMS = ['egg', 'daikon', 'konjac', 'chikuwa', 'fishball', 'tofu', 'kelp', 'tendon', 'mochi', 'sausage'] as const;
 export type OdenItem = (typeof ODEN_ITEMS)[number];
 export const ODEN_PRICE: Record<OdenItem, number> = {
-  egg: 15, daikon: 15, konjac: 12, chikuwa: 18, fishball: 20, tofu: 18, kelp: 12, tendon: 28, mochi: 25, sausage: 22,
+  egg: 1.25, daikon: 1.25, konjac: 1.0, chikuwa: 1.5, fishball: 1.75, tofu: 1.5, kelp: 1.0, tendon: 2.25, mochi: 2.0, sausage: 1.75,
 };
 export const ODEN_COST_RATIO = 0.35;
 
 export const MEATS = ['turkey', 'ham', 'roastbeef', 'salami', 'swiss'] as const;
 export type Meat = (typeof MEATS)[number];
-export const MEAT_PRICE_LB: Record<Meat, number> = { turkey: 850, ham: 700, roastbeef: 980, salami: 875, swiss: 735 };
+export const MEAT_PRICE_LB: Record<Meat, number> = { turkey: 11.99, ham: 9.99, roastbeef: 13.99, salami: 12.49, swiss: 10.49 };
 export const MEAT_COST_RATIO = 0.55;
 
 export const BREADS = [
@@ -129,8 +129,8 @@ export const BREAD_UNLOCK: Record<Bread, number> = {
 /** Everyone's favorite is one of the breads every language has. */
 export const favBread = (npcIndex: number): Bread => BREADS[(npcIndex * 7 + 3) % 8];
 export const BREAD_PRICE: Record<Bread, number> = {
-  croissant: 85, baguette: 110, muffin: 75, cinnamon: 95, melonpan: 80, bagel: 70, pretzel: 90, anpan: 65,
-  eggtart: 35, pineapple_bun: 40, curry_bread: 85, cream_bread: 70, soboro: 35, kkwabaegi: 30,
+  croissant: 2.75, baguette: 3.5, muffin: 2.5, cinnamon: 3.25, melonpan: 2.5, bagel: 2.25, pretzel: 3, anpan: 2.5,
+  eggtart: 2.25, pineapple_bun: 2.5, curry_bread: 2.75, cream_bread: 2.25, soboro: 2.25, kkwabaegi: 2,
 };
 export const BREAD_COST_RATIO = 0.3;
 export type BreadQuality = 'good' | 'golden';
@@ -141,20 +141,20 @@ export type CoffeeStep = (typeof COFFEE_STEPS)[number];
 export const STEP_REGION: Partial<Record<CoffeeStep, string>> = { tea: 'zh', matcha: 'ja', dalgona: 'ko' };
 export interface DrinkDef { id: string; steps: CoffeeStep[]; price: number; region?: string }
 export const DRINKS: DrinkDef[] = [
-  { id: 'americano', steps: ['espresso', 'espresso', 'water'], price: 120 },
-  { id: 'latte', steps: ['espresso', 'milk', 'foam'], price: 170 },
-  { id: 'cappuccino', steps: ['espresso', 'foam', 'foam'], price: 160 },
-  { id: 'mocha', steps: ['chocolate', 'espresso', 'milk', 'whip'], price: 195 },
-  { id: 'iced_latte', steps: ['ice', 'espresso', 'milk'], price: 175 },
-  { id: 'vanilla_latte', steps: ['vanilla', 'espresso', 'milk', 'foam'], price: 185 },
-  { id: 'caramel_macchiato', steps: ['caramel', 'milk', 'espresso', 'caramel'], price: 205 },
-  { id: 'iced_mocha', steps: ['ice', 'chocolate', 'espresso', 'milk', 'whip'], price: 210 },
-  { id: 'milk_tea', steps: ['tea', 'milk'], price: 120, region: 'zh' },
-  { id: 'yuanyang', steps: ['tea', 'espresso', 'milk'], price: 145, region: 'zh' },
-  { id: 'matcha_latte', steps: ['matcha', 'milk', 'foam'], price: 185, region: 'ja' },
-  { id: 'iced_matcha', steps: ['ice', 'matcha', 'milk'], price: 190, region: 'ja' },
-  { id: 'dalgona', steps: ['ice', 'milk', 'dalgona'], price: 180, region: 'ko' },
-  { id: 'iced_americano', steps: ['ice', 'espresso', 'espresso', 'water'], price: 130, region: 'ko' },
+  { id: 'americano', steps: ['espresso', 'espresso', 'water'], price: 3.25 },
+  { id: 'latte', steps: ['espresso', 'milk', 'foam'], price: 4.25 },
+  { id: 'cappuccino', steps: ['espresso', 'foam', 'foam'], price: 4.25 },
+  { id: 'mocha', steps: ['chocolate', 'espresso', 'milk', 'whip'], price: 4.95 },
+  { id: 'iced_latte', steps: ['ice', 'espresso', 'milk'], price: 4.5 },
+  { id: 'vanilla_latte', steps: ['vanilla', 'espresso', 'milk', 'foam'], price: 4.75 },
+  { id: 'caramel_macchiato', steps: ['caramel', 'milk', 'espresso', 'caramel'], price: 5.25 },
+  { id: 'iced_mocha', steps: ['ice', 'chocolate', 'espresso', 'milk', 'whip'], price: 5.45 },
+  { id: 'milk_tea', steps: ['tea', 'milk'], price: 3.75, region: 'zh' },
+  { id: 'yuanyang', steps: ['tea', 'espresso', 'milk'], price: 4.5, region: 'zh' },
+  { id: 'matcha_latte', steps: ['matcha', 'milk', 'foam'], price: 4.75, region: 'ja' },
+  { id: 'iced_matcha', steps: ['ice', 'matcha', 'milk'], price: 4.95, region: 'ja' },
+  { id: 'dalgona', steps: ['ice', 'milk', 'dalgona'], price: 5.25, region: 'ko' },
+  { id: 'iced_americano', steps: ['ice', 'espresso', 'espresso', 'water'], price: 3.5, region: 'ko' },
 ];
 export const COFFEE_COST_RATIO = 0.25;
 
@@ -165,7 +165,7 @@ export const MIDNIGHT = 24 * 60;
 /** real seconds per game minute at 1x */
 export const SEC_PER_MIN = 0.4;
 export const NIGHT_SECONDS = 15;
-export const START_MONEY = 50000;
+export const START_MONEY = 1000;
 
 export interface TraitDef {
   id: string;
@@ -201,7 +201,7 @@ export function unlockedSkills(level: number): Skill[] {
 
 export const CAT_TREASURES = ['leaf', 'feather', 'bottlecap', 'button', 'ribbon', 'pebble', 'flower', 'sock', 'mouse', 'bell', 'acorn', 'shell'] as const;
 export const UMBRELLA_COLORS = ['red', 'blue', 'yellow'] as const;
-export const UMBRELLA_PRICE = 400;
+export const UMBRELLA_PRICE = 8;
 export const CAT_COATS = ['orange', 'black', 'white', 'calico', 'gray', 'tuxedo', 'shorthair', 'siamese'] as const;
 export type CatCoat = (typeof CAT_COATS)[number];
 
@@ -257,7 +257,7 @@ export function isRolling(decor: string | undefined): boolean {
 
 /** Customers can play with these themselves, drawing a cat over. */
 export const HAND_TOYS: CafeToy[] = ['wand', 'fishing', 'ribbon', 'laser'];
-export const TABLE_PRICE = 20000;
+export const TABLE_PRICE = 400;
 
 /** Each store opens with its own look (keyed by its challenge); it can still be renovated like any other. */
 export const STORE_STYLE: Record<string, { floor: string; wall: string; sign: string }> = {
@@ -279,13 +279,13 @@ export const STYLE_UNLOCK = {
 };
 /** One-time cost of each renovation style; the first of each is the default. */
 export const STYLE_PRICE = {
-  floor: [0, 75000, 150000, 250000, 400000, 300000, 450000, 300000, 350000, 400000, 400000, 400000],
-  wall: [0, 100000, 200000, 350000, 300000, 300000, 450000, 300000, 350000, 450000, 450000, 450000],
-  sign: [0, 125000, 300000, 600000, 400000, 500000, 400000, 500000, 500000, 500000],
+  floor: [0, 1500, 3000, 5000, 8000, 6000, 9000, 6000, 7000, 8000, 8000, 8000],
+  wall: [0, 2000, 4000, 7000, 6000, 6000, 9000, 6000, 7000, 9000, 9000, 9000],
+  sign: [0, 2500, 6000, 12000, 8000, 10000, 8000, 10000, 10000, 10000],
 };
 export const CAT_ACCS = ['bell', 'bandana', 'bow', 'scarf', 'crown'] as const;
 export type CatAcc = (typeof CAT_ACCS)[number];
-export const CAT_ACC_PRICE: Record<CatAcc, number> = { bell: 25000, bandana: 60000, bow: 100000, scarf: 200000, crown: 750000 };
+export const CAT_ACC_PRICE: Record<CatAcc, number> = { bell: 500, bandana: 1200, bow: 2000, scarf: 4000, crown: 15000 };
 
 /** Affinity levels at which a regular hands over a gift: postcard, sticker, craft, photo. */
 export const GIFT_KINDS = ['postcard', 'sticker', 'craft', 'photo'] as const;
