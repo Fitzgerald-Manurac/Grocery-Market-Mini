@@ -20,7 +20,6 @@ import { sfx } from '../core/audio';
 import { fitGoals, progressGoals, refreshGoals, type GoalKind, type GoalScope } from './goals';
 import { COLLECTION_BONUS } from './progress';
 import { capacityOf, gainReputation } from './growth';
-import { phpToUsdCents } from './rules';
 import { eventText, goalText } from '../ui/goals';
 import type { AwaySummary } from '../ui/app';
 import { achName } from '../ui/achievements';
@@ -224,7 +223,7 @@ export class Game {
       const traits = TRAITS.filter((tr) => open.includes(tr.skill));
       const trait = rng.chance(0.5) ? rng.pick(traits).id : null;
       out.push({
-        id: this.state.nextId++, name, look, wage: 600 + total * 100 + (trait ? 150 : 0) + rng.int(0, 200),
+        id: this.state.nextId++, name, look, wage: 35 + total * 5 + (trait ? 8 : 0) + rng.int(0, 8),
         role: 'auto', skills, hiredDay: this.state.day, trait, baseLevels: total,
       });
     }
@@ -539,7 +538,7 @@ export class Game {
     let game;
     if (line.kind === 'register') {
       if (!c.cash || !c.payment) return;
-      game = new CheckoutGame(phpToUsdCents(c.total()), c.payment, seed);
+      game = new CheckoutGame(Math.round(c.total() * 100), c.payment, seed);
     } else if (line.kind === 'bagging') {
       const ids = c.basket.filter((b) => b.kind === 'product').flatMap((b) => Array(b.qty).fill(b.id) as string[]);
       game = new BaggingGame(ids);
