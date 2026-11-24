@@ -16,9 +16,9 @@ export const MAX_BUILDING_LEVEL = 3;
 
 /** Price of the first level; each further level costs three times the one before. */
 export const BUILDING_PRICE: Record<BuildingId, number> = {
-  bus: 800000, park: 1200000, school: 2400000, gym: 2800000, apartments: 3200000,
-  clinic: 3600000, office: 4800000, parking: 6000000, arcade: 10000000, tower: 20000000,
-  plaza: 1600000, market: 2000000, bathhouse: 2400000, netcafe: 2000000,
+  bus: 20000, park: 30000, school: 60000, gym: 70000, apartments: 80000,
+  clinic: 90000, office: 120000, parking: 150000, arcade: 250000, tower: 500000,
+  plaza: 40000, market: 50000, bathhouse: 60000, netcafe: 50000,
 };
 export const BUILDINGS = Object.keys(BUILDING_PRICE) as BuildingId[];
 /** Local buildings can only be put up while playing in that language; ones already standing keep working. */
