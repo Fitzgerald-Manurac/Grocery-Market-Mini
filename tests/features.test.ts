@@ -405,12 +405,12 @@ describe('card-only counters', () => {
 describe('raises', () => {
   it('wages grow with skill levels gained after hiring, more slowly over time', async () => {
     const { raiseOf, wageOf } = await import('../src/game/state');
-    const st = { id: 1, name: 0, look: 0, wage: 2750, role: 'auto' as const, skills: freshSkills({ checkout: 5 }), hiredDay: 1, trait: null, baseLevels: 4 };
-    expect(wageOf(st)).toBe(2750);
+    const st = { id: 1, name: 0, look: 0, wage: 65, role: 'auto' as const, skills: freshSkills({ checkout: 5 }), hiredDay: 1, trait: null, baseLevels: 4 };
+    expect(wageOf(st)).toBe(65);
     st.skills.checkout.level = 9;
-    expect(raiseOf(st)).toBe(320);
+    expect(raiseOf(st)).toBe(8);
     st.skills.checkout.level = 105;
-    expect(raiseOf(st)).toBe(1600);
+    expect(raiseOf(st)).toBe(40);
     const s = newGame(3);
     s.staff.push({ ...st });
     const sim = runDay(s);
