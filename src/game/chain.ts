@@ -43,7 +43,7 @@ export const CHALLENGES: ChallengeDef[] = [
   { id: 'fresh', layout: 'pillars', rules: { spoil: 0.25 }, peaks: [[555, 0.5, 90], [990, 0.3, 120]], goal: 'fresh', target: 6000 },
   { id: 'oldtown', layout: 'side', rules: { cash: 0.9, walk: 0.7, patience: 1.3 }, peaks: [[510, 0.35, 60], [840, 0.4, 150]], goal: 'cash', target: 2500 },
   { id: 'school', layout: 'pillars_mirror', rules: { spill: 4, budget: 0.75 }, peaks: [[490, 0.25, 25], [930, 0.5, 60]], goal: 'cleaned', target: 250 },
-  { id: 'suburb', layout: 'side_mirror', rules: { traffic: 0.55, budget: 1.8 }, peaks: [[780, 0.45, 200], [1110, 0.3, 90]], goal: 'revenue', target: 8250000 },
+  { id: 'suburb', layout: 'side_mirror', rules: { traffic: 0.55, budget: 1.8 }, peaks: [[780, 0.45, 200], [1110, 0.3, 90]], goal: 'revenue', target: 150000 },
 ];
 export const CHALLENGE_BY_ID = new Map(CHALLENGES.map((c) => [c.id, c]));
 
@@ -65,14 +65,14 @@ export function inCafe(s: GameState): boolean {
 
 export const BRANCH_REP = 20;
 /** Cost of opening each branch in turn. */
-export const BRANCH_COST = [2000000, 3000000, 4500000, 6500000, 9000000];
+export const BRANCH_COST = [40000, 60000, 90000, 130000, 180000];
 /** Each finished store raises prices in every store. */
 export const STORE_BONUS = 0.02;
 /** Stores you are not running earn this share of their recent daily profit; a good manager raises it. */
 export const MANAGER_SHARE = 0.5;
 export const MAX_MANAGER_SHARE = 0.9;
 /** The main store's advanced tiers: total takings, with rent going up each tier. */
-export const MAIN_TIER_TARGET = 11000000;
+export const MAIN_TIER_TARGET = 200000;
 
 const FRESH: Category[] = ['produce', 'dairy', 'meat'];
 export function isFresh(cat: Category): boolean {
