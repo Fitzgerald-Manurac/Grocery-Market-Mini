@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Rng } from '../src/core/rng';
-import { addExp, npcExpToNext, affinityValue, budgetMult, changeAffinity, CASH, MAX_LEVEL, changeDue, makeCashPayment, phpToUsdCents, roundCash, serviceReward, skillExpToNext, skillSpeed, sum, usdCentsToPhp } from '../src/game/rules';
+import { addExp, npcExpToNext, affinityValue, budgetMult, changeAffinity, CASH, MAX_LEVEL, changeDue, makeCashPayment, roundCash, serviceReward, skillExpToNext, skillSpeed, sum } from '../src/game/rules';
 import { cashSet, money, usdMoney } from '../src/i18n';
 
 describe('skill speed', () => {
@@ -57,18 +57,28 @@ describe('affinity levels', () => {
 describe('cash', () => {
   it('uses dollars as the default currency and checkout cash', async () => {
     const { CASH_OF_LOCALE } = await import('../src/game/rules');
-    expect(money(58)).toBe('$1.00');
-    expect(money(55)).toBe('$0.95');
-    expect(money(58000)).toBe('$1,000.00');
+    expect(money(12.5)).toBe('$12.50');
+    expect(money(58)).toBe('$58.00');
     expect(usdMoney(12.5)).toBe('$12.50');
     expect(cashSet().id).toBe('usd');
     expect(Object.values(CASH_OF_LOCALE)).toEqual(['usd', 'usd', 'usd', 'usd']);
   });
 
-  it('converts legacy peso prices to USD checkout amounts', () => {
-    expect(phpToUsdCents(58)).toBe(100);
-    expect(phpToUsdCents(55)).toBe(95);
-    expect(usdCentsToPhp(100)).toBe(58);
+  it('restores the original USD economy scale', async () => {
+    const { FIXTURES, LEVELS, PRODUCTS, START_MONEY, TABLE_PRICE, DRINKS, ODEN_PRICE, MEAT_PRICE_LB, BREAD_PRICE } = await import('../src/game/defs');
+    const { BRANCH_COST } = await import('../src/game/chain');
+    const { BUILDING_PRICE } = await import('../src/game/street');
+    expect(START_MONEY).toBe(1000);
+    expect(FIXTURES.shelf.price).toBe(150);
+    expect(LEVELS[1]).toMatchObject({ cost: 1500, rent: 80 });
+    expect(PRODUCTS.find((p) => p.id === 'apple_red')?.price).toBe(1);
+    expect(ODEN_PRICE.egg).toBe(1.25);
+    expect(MEAT_PRICE_LB.ham).toBe(9.99);
+    expect(BREAD_PRICE.croissant).toBe(2.75);
+    expect(DRINKS.find((d) => d.id === 'americano')?.price).toBe(3.25);
+    expect(TABLE_PRICE).toBe(400);
+    expect(BRANCH_COST).toEqual([40000, 60000, 90000, 130000, 180000]);
+    expect(BUILDING_PRICE.bus).toBe(20000);
   });
 
   it('rounds to the nearest nickel', () => {
