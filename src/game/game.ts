@@ -20,6 +20,7 @@ import { sfx } from '../core/audio';
 import { fitGoals, progressGoals, refreshGoals, type GoalKind, type GoalScope } from './goals';
 import { COLLECTION_BONUS } from './progress';
 import { capacityOf, gainReputation } from './growth';
+import { phpToUsdCents } from './rules';
 import { eventText, goalText } from '../ui/goals';
 import type { AwaySummary } from '../ui/app';
 import { achName } from '../ui/achievements';
@@ -538,7 +539,7 @@ export class Game {
     let game;
     if (line.kind === 'register') {
       if (!c.cash || !c.payment) return;
-      game = new CheckoutGame(Math.round(c.total() * 100), c.payment, seed);
+      game = new CheckoutGame(phpToUsdCents(c.total()), c.payment, seed);
     } else if (line.kind === 'bagging') {
       const ids = c.basket.filter((b) => b.kind === 'product').flatMap((b) => Array(b.qty).fill(b.id) as string[]);
       game = new BaggingGame(ids);
