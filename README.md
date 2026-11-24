@@ -49,7 +49,7 @@ Run the downloaded Windows x64 portable `.exe`; no installer is needed. Windows 
 
 Download the signed Android 7.0+ release APK:
 
-**[Download Grocery Market Mini v1.1 for Android](release/Grocery-Market-Mini-v1.1.apk)**
+**[Download Grocery Market Mini v1.2 for Android](release/Grocery-Market-Mini-v1.2.apk)**
 
 On Android, enable installation from the browser or file manager:
 
