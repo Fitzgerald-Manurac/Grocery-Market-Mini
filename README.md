@@ -47,7 +47,7 @@ Run the downloaded Windows x64 portable `.exe`; no installer is needed. Windows 
 
 ### Android APK
 
-Download the signed Android 7.0+ release APK:
+Download the signed Android 7.0+ release APK (version 1.2, version code 3):
 
 **[Download Grocery Market Mini v1.2 for Android](release/Grocery-Market-Mini-v1.2.apk)**
 
@@ -69,16 +69,16 @@ npm run app:windows
 
 The portable executable is written to `release/`.
 
-To prepare the Android app, install Android Studio with the Android SDK, then run:
+To build the Android app from source, install Android Studio with JDK 21 and Android SDK 36, then run:
 
 ```bash
 npm run app:android:sync
 npm run app:android:open
 ```
 
-The Android Studio project is in `android/`. In Android Studio, build an APK with **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+The Android Studio project is in `android/`. Use **Build → Build Bundle(s) / APK(s) → Build APK(s)** for a local debug APK. This is separate from the signed release APK linked above.
 
-To build a signed release APK from the command line:
+To build a signed release APK from source, configure your local release keystore in `android/release-keystore.properties` first. The keystore and its passwords are intentionally excluded from Git; without them, you cannot reproduce the published signing identity. Then run:
 
 ```bash
 npm run app:android:sync
@@ -86,4 +86,4 @@ cd android
 ./gradlew assembleRelease
 ```
 
-On Windows, use `gradlew.bat assembleRelease` instead. The signed APK is written to `android/app/build/outputs/apk/release/app-release.apk`.
+On Windows, use `gradlew.bat assembleRelease` instead. The signed APK is written to `android/app/build/outputs/apk/release/app-release.apk`. The published copy is `release/Grocery-Market-Mini-v1.2.apk`.
