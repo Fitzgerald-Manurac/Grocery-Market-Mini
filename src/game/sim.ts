@@ -17,7 +17,7 @@ import { streetFx, type StreetFx } from './street';
 import { chainPriceMult, inCafe, markExp, type ExpMark, isFresh, peaksOf, perksOf, rulesOf, storeLayout, type Perks, type Rules } from './chain';
 import { accessTiles, entryTile, fixtureCells, Grid, serveTiles, spawnTile, type Layout, type P, type StationSpot } from './layout';
 import {
-  addExp, affinityValue, budgetMult, CASH, changeAffinity, makeCashPayment, npcExpToNext, roundCash, serviceReward, skillExpToNext, skillSpeed, waitPenalty,
+  addExp, affinityValue, budgetMult, CASH, changeAffinity, makeCashPayment, npcExpToNext, phpToUsdCents, roundCash, serviceReward, skillExpToNext, skillSpeed, usdCentsToPhp, waitPenalty,
   type CashPayment, type Leveled, type ServiceResult,
 } from './rules';
 import { openingBuzz, takeStored, unlockedBreads, wageOf, type DayStats, type FixtureState, type GameState, type Role } from './state';
@@ -2142,7 +2142,7 @@ export class Sim {
     let best = open[0];
     for (const r of open) if (r.members.length < best.members.length) best = r;
     this.upsell(c, best);
-    if (c.cash) c.payment = makeCashPayment(Math.round(c.total() * 100), this.rng, npc, cashSet());
+    if (c.cash) c.payment = makeCashPayment(phpToUsdCents(c.total()), this.rng, npc, cashSet());
     c.needsBag = !!this.bagging && c.itemCount() >= 3;
     this.join(c, best);
   }
@@ -2244,7 +2244,7 @@ export class Sim {
 
   private pay(c: Customer, at: P): void {
     const total = c.total();
-    const paid = c.cash ? roundCash(Math.round(total * 100), CASH[c.payment?.cash ?? cashSet().id]) / 100 : total;
+    const paid = c.cash ? usdCentsToPhp(roundCash(phpToUsdCents(total), CASH[c.payment?.cash ?? cashSet().id])) : total;
     if (c.cash) this.stats.cash! += 1;
     this.state.money += paid;
     this.stats.revenue += paid;
