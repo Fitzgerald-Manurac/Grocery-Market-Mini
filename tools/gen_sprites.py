@@ -116,7 +116,7 @@ def npcs(prods):
         likes = rnd.sample(CATEGORIES, 2)
         favs = rnd.sample(ids_by_cat[likes[0]], 1) + rnd.sample(ids_by_cat[likes[1]], 1) + [rnd.choice(prods)['id']]
         stations = {s: round(rnd.uniform(0.0, 0.55) if rnd.random() < 0.6 else 0.0, 2) for s in STATIONS}
-        budget = rnd.randint(440, 880) if kind == 'kid' else rnd.randint(880, 2310)
+        budget = rnd.randint(8, 16) if kind == 'kid' else rnd.randint(16, 42)
         cash = rnd.uniform(0.08, 0.3) + (0.25 if kind == 'elder' else 0) + (0.2 if kind == 'kid' else 0)
         out.append({
             'id': f'n{i}', 'kind': kind, 'likes': likes, 'favs': favs, 'stations': stations,
