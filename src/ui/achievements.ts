@@ -1,5 +1,5 @@
 import { rect } from '../core/assets';
-import { money, t, weight, type Key } from '../i18n';
+import { money, t, usdMoney, weight, type Key } from '../i18n';
 import { ACH_CATEGORIES, ACH_TOTAL, ACHIEVEMENTS, achValue, categoryOpen, isRevealed, ROMAN, unlockedCount, type AchievementDef } from '../game/achievements';
 import type { GameState } from '../game/state';
 import { h } from './dom';
@@ -26,7 +26,7 @@ export function achName(a: AchievementDef): string {
 
 export function formatAch(a: AchievementDef, v: number): string {
   if (a.format === 'money') return money(v);
-  if (a.format === 'cents') return money(v / 100);
+  if (a.format === 'cents') return usdMoney(v / 100);
   if (a.format === 'pounds') return weight(v);
   return Math.floor(v).toLocaleString('en-US');
 }
