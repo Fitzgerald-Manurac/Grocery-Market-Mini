@@ -67,8 +67,8 @@ const amount = (k: MiniKind) => (s: GameState) => s.lifetime.amount[k];
 /** Mini-game achievements only count completions and totals, never speed or accuracy. */
 const CATEGORIES: CategoryDef[] = [
   { cat: 'expand', tiers: [1, 2, 3, 4, 5], format: 'count', value: bestLevel },
-  { cat: 'revenue', tiers: [40000, 400000, 2000000, 8000000, 40000000], format: 'money', value: (s) => s.lifetime.revenue },
-  { cat: 'savings', tiers: [200000, 1000000, 4000000], format: 'money', value: (s) => s.money },
+  { cat: 'revenue', tiers: [1000, 10000, 50000, 200000, 1000000], format: 'money', value: (s) => s.lifetime.revenue },
+  { cat: 'savings', tiers: [5000, 25000, 100000], format: 'money', value: (s) => s.money },
   { cat: 'days', tiers: [3, 7, 30, 100, 365], format: 'count', value: (s) => s.day - 1 },
   { cat: 'customers', tiers: [100, 1000, 5000, 20000], format: 'count', value: (s) => s.lifetime.customers },
   { cat: 'friends', tiers: [1, 10, 50], format: 'count', value: (s) => Object.values(s.npcs).filter((n) => n.fond.level >= 10).length },
