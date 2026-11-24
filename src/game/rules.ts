@@ -84,17 +84,6 @@ export function waitPenalty(waitMinutes: number, patience: number): { mult: numb
 
 export type CashId = 'usd' | 'cny' | 'jpy' | 'krw' | 'php';
 
-/** Existing prices and balances are authored in Philippine pesos. */
-export const PHP_PER_USD = 58;
-
-export function phpToUsdCents(php: number): number {
-  return Math.round((php / PHP_PER_USD) * 100);
-}
-
-export function usdCentsToPhp(cents: number): number {
-  return (cents * PHP_PER_USD) / 100;
-}
-
 /**
  * Notes and coins in cents of the game's dollar. Prices stay the same number in every currency;
  * yen show it ×100 (a yen is a cent) and won ×1000 (a won is a tenth of a cent).
@@ -142,7 +131,7 @@ export function sum(pieces: number[]): number {
   return pieces.reduce((a, b) => a + b, 0);
 }
 
-export function greedy(cents: number, list = denoms(CASH.php)): number[] {
+export function greedy(cents: number, list = denoms(CASH.usd)): number[] {
   const out: number[] = [];
   let left = cents;
   for (const d of list) {
