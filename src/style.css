@@ -376,6 +376,10 @@ details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 .title-slot-row .btn { min-width: 56px; padding: 7px 9px; }
 .title-load-modal { width: min(100%, 620px); }
 .title-load-modal .modal-foot { display: flex; justify-content: center; }
+.exit-game-modal .modal-body { padding: 20px 18px; text-align: center; }
+.exit-game-message { max-width: 34ch; margin: auto; font-size: 15px; line-height: 1.7; }
+.exit-game-modal .modal-foot { padding: 12px; }
+.exit-game-action { width: 100%; min-height: 44px; }
 .menu-navigation { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--edge); }
 .menu-navigation .btn { flex: 1; }
 @media (max-width: 480px) {
@@ -526,6 +530,8 @@ label.row > span { white-space: nowrap; }
   .hud { gap: 6px; padding-left: 8px; padding-right: 8px; }
   .hud-day, .hud-time { font-size: 15px; }
   .hud-left { flex-wrap: wrap; }
+  .hud-controls { flex: 1 0 100%; min-width: 0; justify-content: space-between; }
+  .hud-controls .btn { min-width: 0; padding-right: 8px; padding-left: 8px; }
   .grow-row { grid-template-columns: 6.5em 4em 1fr; }
   .grow-eff { grid-column: 1 / -1; text-align: left; }
   .hud-money { font-size: 17px; }
@@ -539,6 +545,16 @@ label.row > span { white-space: nowrap; }
   .mini-footer:empty { display: none; }
   .mini-confirm { flex: 1; }
   .mini-confirm .btn { flex: 1; min-width: 0; }
+  .title-load-modal .modal-body { padding-right: 10px; padding-left: 10px; }
+  .title-slot-list { max-height: min(46dvh, 360px); }
+  .title-slot-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .title-slot-row > .title-slot-info { grid-column: 1 / -1; }
+  .title-slot-row.empty { grid-template-columns: minmax(0, 1fr) auto; }
+  .title-slot-row.empty > .title-slot-info { grid-column: auto; }
+  .title-slot-name { min-width: 0; }
+  .title-slot-row .btn { width: 100%; min-width: 0; padding-right: 6px; padding-left: 6px; }
+  .title-load-modal .modal-foot { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); gap: 7px; }
+  .title-load-modal .modal-foot .btn { min-width: 0; padding-right: 6px; padding-left: 6px; }
 }
 
 @media (hover: none) {

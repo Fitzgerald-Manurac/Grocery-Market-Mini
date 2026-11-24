@@ -201,14 +201,7 @@ export class UI {
       h('button', { class: 'btn primary title-screen-action', onclick: () => this.showNewGameConfirm(), 'aria-label': 'Start a new game' }, ['New Game']),
       h('button', { class: 'btn title-screen-action', onclick: () => this.showTitleLoad(), 'aria-label': 'Load saved game' }, ['Load Game']),
       h('button', { class: 'btn title-screen-action', onclick: () => this.showTitleOptions(), 'aria-label': 'Open options' }, ['Option']),
-      h('button', { class: 'btn ghost title-screen-action', onclick: () => {
-        window.close();
-        this.modal('Exit Game', h('p', { class: 'muted' }, ['You can close this browser tab to exit the game.']), [
-          h('button', { class: 'btn primary', onclick: () => this.showTitleScreen() }, ['Back']),
-        ]);
-        this.modalEl?.classList.add('title-screen-back');
-        this.modalEl?.querySelector<HTMLButtonElement>('.modal-head .btn')?.addEventListener('click', () => this.showTitleScreen());
-      }, 'aria-label': 'Exit game' }, ['Exit']),
+      h('button', { class: 'btn ghost title-screen-action', onclick: () => this.exitOrShowPrompt(() => this.showTitleScreen(), 'Back to Title Screen'), 'aria-label': 'Exit game' }, ['Exit']),
     ];
     this.modal('Grocery Market Mini Game', body, buttons);
     this.modalEl?.classList.add('title-screen-back');
@@ -308,6 +301,23 @@ export class UI {
     ]), [h('button', { class: 'btn primary', onclick: () => this.showTitleScreen() }, ['Back'])]);
     this.modalEl?.classList.add('title-screen-back');
     this.modalEl?.querySelector<HTMLButtonElement>('.modal-head .btn')?.addEventListener('click', () => this.showTitleScreen());
+  }
+
+  private showExitPrompt(onReturn: () => void, returnLabel: string): void {
+    this.modal('Exit Game', h('p', { class: 'muted exit-game-message' }, ['To exit, close this app or browser tab.']), [
+      h('button', { class: 'btn primary exit-game-action', onclick: onReturn }, [returnLabel]),
+    ]);
+    this.modalEl?.classList.add('title-screen-back');
+    this.modalEl?.querySelector('.modal')?.classList.add('exit-game-modal');
+    this.modalEl?.querySelector<HTMLButtonElement>('.modal-head .btn')?.addEventListener('click', onReturn);
+  }
+
+  private exitOrShowPrompt(onReturn: () => void, returnLabel: string): void {
+    if (navigator.userAgent.includes('Electron')) {
+      window.close();
+      return;
+    }
+    this.showExitPrompt(onReturn, returnLabel);
   }
 
   private resumeFromMenu(): void {
@@ -661,14 +671,7 @@ export class UI {
       h('div', { class: 'row wrap menu-navigation' }, [
         h('button', { class: 'btn', onclick: () => this.showTitleLoad(false) }, ['Save Games']),
         h('button', { class: 'btn', onclick: () => this.showTitleScreen() }, ['Back to Opening Game']),
-        h('button', { class: 'btn warn', onclick: () => {
-          window.close();
-          this.modal('Exit Game', h('p', { class: 'muted' }, ['Close this browser tab to exit the game.']), [
-            h('button', { class: 'btn primary', onclick: () => this.showMenu() }, ['Back to Game Menu']),
-          ]);
-          this.modalEl?.classList.add('title-screen-back');
-          this.modalEl?.querySelector<HTMLButtonElement>('.modal-head .btn')?.addEventListener('click', () => this.showMenu());
-        } }, ['Exit Game']),
+        h('button', { class: 'btn warn', onclick: () => this.exitOrShowPrompt(() => this.showMenu(), 'Back to Game Menu') }, ['Exit Game']),
       ]),
     ]);
     this.modal(t('menu.title'), body);

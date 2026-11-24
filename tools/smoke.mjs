@@ -31,9 +31,9 @@ try {
       // Optional remote analytics is blocked in some test environments.
       if (message.type() === 'error' && !message.text().includes('net::ERR_NETWORK_ACCESS_DENIED')) failures.push(`${viewport.name}: ${message.text()}`);
     });
-    await page.goto('http://localhost:5198/', { waitUntil: 'networkidle0' });
+    await page.goto('http://localhost:5198/', { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => localStorage.clear());
-    await page.reload({ waitUntil: 'networkidle0' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
     await page.waitForSelector('canvas', { timeout: 30000 });
     const loaded = await page.evaluate(() => !!window.game && !!document.querySelector('canvas'));
     if (!loaded) throw new Error(`${viewport.name}: game did not initialize`);
@@ -64,6 +64,18 @@ try {
     await click('.title-slot-row.empty .btn');
     const slotSaved = await page.$eval('.title-slot-row:nth-child(2) .title-slot-info small', (el) => !el.textContent.includes('Empty slot'));
     if (!slotSaved) throw new Error(`${viewport.name}: saving to a manual slot failed`);
+    if (viewport.isMobile) {
+      const slotsFit = await page.evaluate(() => {
+        const row = document.querySelector('.title-slot-row:nth-child(2)');
+        if (!row) return false;
+        const bounds = row.getBoundingClientRect();
+        const children = [...row.children].map((child) => child.getBoundingClientRect());
+        return children.every((child, i) => child.left >= bounds.left && child.right <= bounds.right
+          && children.slice(i + 1).every((other) => child.right <= other.left || child.left >= other.right
+            || child.bottom <= other.top || child.top >= other.bottom));
+      });
+      if (!slotsFit) throw new Error(`${viewport.name}: saved slot controls overlap or overflow`);
+    }
     let slotRecord = await page.evaluate(() => JSON.parse(localStorage.getItem('grocery.save.slots.v1'))[0]);
     if (slotRecord.name !== 'Corner Store') throw new Error(`${viewport.name}: save slot name was not saved`);
     await page.$eval('.title-slot-row:nth-child(2) input', (el) => { el.value = 'Friday Market'; });
@@ -91,6 +103,18 @@ try {
     await click('.modal .btn.warn');
     const started = await page.evaluate(() => window.game.phase === 'day' && !document.querySelector('.title-screen-modal'));
     if (!started) throw new Error(`${viewport.name}: New Game did not start the day`);
+    if (viewport.isMobile) {
+      const menuFits = await page.evaluate(() => {
+        const controls = document.querySelector('.hud-controls');
+        const menu = controls?.lastElementChild;
+        if (!controls || !menu) return false;
+        const bounds = controls.getBoundingClientRect();
+        const button = menu.getBoundingClientRect();
+        return bounds.left >= 0 && bounds.right <= window.innerWidth
+          && button.left >= bounds.left && button.right <= bounds.right && button.width > 0;
+      });
+      if (!menuFits) throw new Error(`${viewport.name}: HUD Menu button is clipped`);
+    }
 
     await page.evaluate(() => window.game.ui.showTitleScreen());
     const pausedBehindTitle = await page.evaluate(() => window.game.paused());
@@ -117,7 +141,8 @@ try {
     if (!(await page.$('.title-screen-modal'))) throw new Error(`${viewport.name}: Back to Opening Game failed`);
     await page.evaluate(() => window.game.ui.showMenu());
     await click('.menu-navigation .btn.warn');
-    if (!(await page.$('.modal-head h2')) || !(await page.$('.title-screen-back'))) throw new Error(`${viewport.name}: Exit Game prompt did not open`);
+    if (!(await page.$('.exit-game-modal')) || !(await page.$('.title-screen-back'))
+      || !(await page.$('.exit-game-action'))) throw new Error(`${viewport.name}: Exit Game prompt did not open`);
     await click('.modal-foot .btn.primary');
     if (!(await page.$('.pause-menu-back'))) throw new Error(`${viewport.name}: exit prompt did not return to menu`);
     await page.click('.pause-menu-back .modal-head .btn');
@@ -147,6 +172,7 @@ try {
     await click('[aria-label="Exit game"]');
     if (!(await page.isClosed())) {
       await page.waitForFunction(() => [...document.querySelectorAll('.modal-head h2')].some((el) => el.textContent === 'Exit Game'));
+      if (!(await page.$('.exit-game-modal'))) throw new Error(`${viewport.name}: title Exit prompt styling is missing`);
       await click('.modal-foot .btn.primary');
       if (!(await page.$('.title-screen-modal'))) throw new Error(`${viewport.name}: Exit Back did not return to title`);
     }
