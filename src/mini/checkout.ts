@@ -1,7 +1,7 @@
 import { drawSprite, drawText, rect, textWidth } from '../core/assets';
 import { Rng } from '../core/rng';
 import { sfx } from '../core/audio';
-import { cashLabel, money, t } from '../i18n';
+import { cashLabel, t, usdMoney } from '../i18n';
 import { CASH, greedy, isBill, roundCash, sum, type CashPayment, type CashSet } from '../game/rules';
 import { accuracyLabel, inRect, MiniGame, panel, type MiniResult } from './base';
 
@@ -235,7 +235,7 @@ export class CheckoutGame extends MiniGame {
     ctx.strokeStyle = '#5a3a28';
     ctx.strokeRect(c.x + 0.5, c.y + 0.5, c.w - 1, c.h - 1);
 
-    const amount = money(this.due / 100);
+    const amount = usdMoney(this.due / 100);
     const lw = Math.max(textWidth(amount, 2) + 12, 90);
     const lx = Math.floor((vw - lw) / 2);
     panel(ctx, lx, 4, lw, 22, '#203020');
@@ -253,7 +253,7 @@ export class CheckoutGame extends MiniGame {
 
     drawSprite(ctx, 'tray', this.trayR.x, this.trayR.y);
     for (const it of this.trayItems()) drawSprite(ctx, this.sprite(it.v), it.x, it.y);
-    const ts = money(sum(this.tray) / 100);
+    const ts = usdMoney(sum(this.tray) / 100);
     drawText(ctx, ts, this.trayR.x + this.trayR.w + 6, this.trayR.y + 4, '#f0e0a0');
 
     drawSprite(ctx, `drawer_${this.cash.id}`, this.drawerR.x, this.drawerR.y);
