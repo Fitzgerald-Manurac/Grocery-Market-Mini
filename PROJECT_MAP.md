@@ -161,7 +161,7 @@ This guide covers the files and folders tracked by Git. Build output, dependenci
 | File | Meaning |
 | --- | --- |
 | `release/PURPOSE.md` | Explains the repository release-download folder. |
-| `release/Grocery-Market-Mini-v1.0.apk` | Signed Android release APK for direct download. |
+| `release/Grocery-Market-Mini-v1.2.apk` | Signed Android release APK for direct download. |
 
 ### Game source
 
