@@ -98,8 +98,8 @@ export function staffName(index: number): string {
   return current.names.staff[`s${index}`] ?? `#${index}`;
 }
 
-/** Symbol, display multiplier and decimals per language. No exchange rates: a price is the same number, yen ×100 and won ×1000. */
-const MONEY: Record<string, [string, number, number]> = { en: ['₱', 1, 2], zh: ['₱', 1, 2], ja: ['₱', 1, 2], ko: ['₱', 1, 2] };
+/** All language settings use dollar prices and two decimal places. */
+const MONEY: Record<string, [string, number, number]> = { en: ['$', 1, 2], zh: ['$', 1, 2], ja: ['$', 1, 2], ko: ['$', 1, 2] };
 
 export function money(v: number): string {
   const sign = v < 0 ? '-' : '';

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Rng } from '../src/core/rng';
 import { addExp, npcExpToNext, affinityValue, budgetMult, changeAffinity, CASH, MAX_LEVEL, changeDue, makeCashPayment, roundCash, serviceReward, skillExpToNext, skillSpeed, sum } from '../src/game/rules';
+import { cashSet, money } from '../src/i18n';
 
 describe('skill speed', () => {
   it('grows with diminishing returns', () => {
@@ -54,6 +55,13 @@ describe('affinity levels', () => {
 });
 
 describe('cash', () => {
+  it('uses dollars as the default currency and checkout cash', async () => {
+    const { CASH_OF_LOCALE } = await import('../src/game/rules');
+    expect(money(12.5)).toBe('$12.50');
+    expect(cashSet().id).toBe('usd');
+    expect(Object.values(CASH_OF_LOCALE)).toEqual(['usd', 'usd', 'usd', 'usd']);
+  });
+
   it('rounds to the nearest nickel', () => {
     expect(roundCash(1347, CASH.usd)).toBe(1345);
     expect(roundCash(1348, CASH.usd)).toBe(1350);

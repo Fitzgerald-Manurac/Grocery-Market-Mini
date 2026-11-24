@@ -112,7 +112,7 @@ export const CASH: Record<CashId, CashSet> = {
   php: { id: 'php', bills: [100000, 50000, 20000, 10000, 5000, 2000], coins: [2000, 1000, 500, 100], drawer: [100, 500, 1000, 2000, 5000, 10000, 20000], step: 100, unit: 100, payUps: [100, 500, 5000], share: 1 },
 };
 
-export const CASH_OF_LOCALE: Record<string, CashId> = { en: 'php', zh: 'php', ja: 'php', ko: 'php' };
+export const CASH_OF_LOCALE: Record<string, CashId> = { en: 'usd', zh: 'usd', ja: 'usd', ko: 'usd' };
 
 export function denoms(cash: CashSet): number[] {
   return [...cash.bills, ...cash.coins].sort((a, b) => b - a);
@@ -123,7 +123,7 @@ export function isBill(cash: CashSet, v: number): boolean {
 }
 
 /** US pennies are no longer minted and yuan go down to the jiao; cash totals round to what can be paid. */
-export function roundCash(cents: number, cash = CASH.php): number {
+export function roundCash(cents: number, cash = CASH.usd): number {
   return Math.round(cents / cash.step) * cash.step;
 }
 
@@ -155,7 +155,7 @@ export interface CashProfile {
   miscount: number;
 }
 
-export function makeCashPayment(total: number, rng: Rng, profile: CashProfile, cash = CASH.php): CashPayment {
+export function makeCashPayment(total: number, rng: Rng, profile: CashProfile, cash = CASH.usd): CashPayment {
   const due = roundCash(total, cash);
   const all = denoms(cash);
   const { unit, payUps } = cash;
@@ -201,6 +201,6 @@ export function makeCashPayment(total: number, rng: Rng, profile: CashProfile, c
   return { pieces, intended: sum(pieces), cash: cash.id };
 }
 
-export function changeDue(pieces: number[], total: number, cash = CASH.php): number {
+export function changeDue(pieces: number[], total: number, cash = CASH.usd): number {
   return sum(pieces) - roundCash(total, cash);
 }
