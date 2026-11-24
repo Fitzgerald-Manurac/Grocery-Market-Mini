@@ -1,3 +1,5 @@
+import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 import { getPrefs, setPrefs } from '../core/prefs';
 import { LOCALES, locale, money, onLocaleChange, setLocale, t, type Key } from '../i18n';
 import { NIGHT_SECONDS } from '../game/defs';
@@ -312,9 +314,18 @@ export class UI {
     this.modalEl?.querySelector<HTMLButtonElement>('.modal-head .btn')?.addEventListener('click', onReturn);
   }
 
-  private exitOrShowPrompt(onReturn: () => void, returnLabel: string): void {
+  private async exitOrShowPrompt(onReturn: () => void, returnLabel: string): Promise<void> {
     if (navigator.userAgent.includes('Electron')) {
       window.close();
+      return;
+    }
+    if (Capacitor.getPlatform() === 'android') {
+      try {
+        await App.exitApp();
+      } catch (error) {
+        console.error('Could not exit the Android app:', error);
+        this.toast('Could not close the app.');
+      }
       return;
     }
     this.showExitPrompt(onReturn, returnLabel);
