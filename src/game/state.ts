@@ -49,7 +49,7 @@ export function totalLevels(st: Pick<StaffState, 'skills'>): number {
 
 /** Raises follow the levels gained since hiring, growing more slowly as they pile up. */
 export function raiseOf(st: StaffState): number {
-  return Math.round(160 * Math.sqrt(Math.max(0, totalLevels(st) - st.baseLevels)));
+  return Math.round(4 * Math.sqrt(Math.max(0, totalLevels(st) - st.baseLevels)));
 }
 
 export function wageOf(st: StaffState): number {
